@@ -1,7 +1,7 @@
 {
-	"id": "bfc503b5-45a3-42f4-a096-f4edf9c119a8",
+	"id": "0b1e6b7b-705e-4baa-a24e-40ae336065e5",
 	"name": "engageXR",
-	"timestamp": "2022-02-20T01:09:36.793Z",
+	"timestamp": "2022-02-20T05:04:07.618Z",
 	"collection_id": "18561996-27990fa5-89fe-47a2-8301-c3ea642d5811",
 	"folder_id": 0,
 	"environment_id": "0cfccddb-acf0-4a3a-b55c-9de372ff692c",
@@ -9,10 +9,10 @@
 	"totalFail": 0,
 	"results": [
 		{
-			"id": "db2f93b7-86d9-4dc6-9a77-92e6d5c9d607",
-			"name": "Create Company",
-			"url": "http://localhost:3000/api/v1/company",
-			"time": 56,
+			"id": "8bc8aede-4187-4a2e-9605-64e85ac1b815",
+			"name": "Register User",
+			"url": "http://localhost:3000/api/v1/auth/register",
+			"time": 48,
 			"responseCode": {
 				"code": 201,
 				"name": "Created"
@@ -20,7 +20,43 @@
 			"tests": {},
 			"testPassFailCounts": {},
 			"times": [
-				56
+				48
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "a6487d9c-141a-485d-b779-48e13f21a324",
+			"name": "Login User",
+			"url": "http://localhost:3000/api/v1/auth/login",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				7
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "db2f93b7-86d9-4dc6-9a77-92e6d5c9d607",
+			"name": "Create Company",
+			"url": "http://localhost:3000/api/v1/company",
+			"time": 7,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				7
 			],
 			"allTests": [
 				{}
@@ -30,7 +66,7 @@
 			"id": "48efb400-a494-4ed9-a3df-b106c56ab529",
 			"name": "Get Company",
 			"url": "http://localhost:3000/api/v1/company/abc",
-			"time": 9,
+			"time": 6,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
@@ -38,7 +74,7 @@
 			"tests": {},
 			"testPassFailCounts": {},
 			"times": [
-				9
+				6
 			],
 			"allTests": [
 				{}
@@ -48,7 +84,7 @@
 			"id": "1b8285ec-766c-4fff-bc7b-48f360edc491",
 			"name": "Update Company",
 			"url": "http://localhost:3000/api/v1/company",
-			"time": 10,
+			"time": 7,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
@@ -56,7 +92,7 @@
 			"tests": {},
 			"testPassFailCounts": {},
 			"times": [
-				10
+				7
 			],
 			"allTests": [
 				{}
@@ -66,7 +102,7 @@
 			"id": "192d0b07-2b9e-4c13-9faf-b94fbeaf99c7",
 			"name": "Create Employee",
 			"url": "http://localhost:3000/api/v1/employee",
-			"time": 8,
+			"time": 17,
 			"responseCode": {
 				"code": 201,
 				"name": "Created"
@@ -74,7 +110,7 @@
 			"tests": {},
 			"testPassFailCounts": {},
 			"times": [
-				8
+				17
 			],
 			"allTests": [
 				{}
@@ -119,8 +155,8 @@
 		{
 			"id": "1b62ca46-6d25-403b-92d8-e58d4d9ad168",
 			"name": "Get Employee By EmpID",
-			"url": "http://localhost:3000/api/v1/employee/1",
-			"time": 5,
+			"url": "http://localhost:3000/api/v1/employee/3",
+			"time": 7,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
@@ -128,25 +164,7 @@
 			"tests": {},
 			"testPassFailCounts": {},
 			"times": [
-				5
-			],
-			"allTests": [
-				{}
-			]
-		},
-		{
-			"id": "8b91b1a3-e045-4f0a-b61e-93ab55988f5f",
-			"name": "Delete Employee by EmpID",
-			"url": "http://localhost:3000/api/v1/employee/1",
-			"time": 6,
-			"responseCode": {
-				"code": 204,
-				"name": "No Content"
-			},
-			"tests": {},
-			"testPassFailCounts": {},
-			"times": [
-				6
+				7
 			],
 			"allTests": [
 				{}
@@ -155,16 +173,34 @@
 		{
 			"id": "2221ad9e-0c23-4d5f-b4fd-6aca6744fc9f",
 			"name": "Update Employee by EmpID",
-			"url": "http://localhost:3000/api/v1/employee/1",
-			"time": 10,
+			"url": "http://localhost:3000/api/v1/employee/3",
+			"time": 7,
 			"responseCode": {
-				"code": 404,
-				"name": "Not Found"
+				"code": 200,
+				"name": "OK"
 			},
 			"tests": {},
 			"testPassFailCounts": {},
 			"times": [
-				10
+				7
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "8b91b1a3-e045-4f0a-b61e-93ab55988f5f",
+			"name": "Delete Employee by EmpID",
+			"url": "http://localhost:3000/api/v1/employee/3",
+			"time": 4,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				4
 			],
 			"allTests": [
 				{}
@@ -187,12 +223,38 @@
 			"allTests": [
 				{}
 			]
+		},
+		{
+			"id": "6950d949-193a-45b2-84fd-8a70c6a93e9e",
+			"name": "Not Found Error",
+			"url": "http://localhost:3000/api/v2/company",
+			"time": 5,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				5
+			],
+			"allTests": [
+				{}
+			]
 		}
 	],
 	"count": 1,
-	"totalTime": 121,
+	"totalTime": 132,
 	"collection": {
 		"requests": [
+			{
+				"id": "8bc8aede-4187-4a2e-9605-64e85ac1b815",
+				"method": "POST"
+			},
+			{
+				"id": "a6487d9c-141a-485d-b779-48e13f21a324",
+				"method": "POST"
+			},
 			{
 				"id": "db2f93b7-86d9-4dc6-9a77-92e6d5c9d607",
 				"method": "POST"
@@ -222,16 +284,20 @@
 				"method": "GET"
 			},
 			{
-				"id": "8b91b1a3-e045-4f0a-b61e-93ab55988f5f",
-				"method": "DELETE"
-			},
-			{
 				"id": "2221ad9e-0c23-4d5f-b4fd-6aca6744fc9f",
 				"method": "PUT"
 			},
 			{
+				"id": "8b91b1a3-e045-4f0a-b61e-93ab55988f5f",
+				"method": "DELETE"
+			},
+			{
 				"id": "25e94fda-e002-4440-9710-f796ae9c345e",
 				"method": "DELETE"
+			},
+			{
+				"id": "6950d949-193a-45b2-84fd-8a70c6a93e9e",
+				"method": "GET"
 			}
 		]
 	}

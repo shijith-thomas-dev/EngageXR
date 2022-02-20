@@ -2,13 +2,14 @@
 const express= require("express")
 const logger = require("../config/winston.config")
 const companyService = require("../services/company.service")
+const authMiddleware = require("../middlewares/auth.middleware")
   
 // Creating express Router
 const router=express.Router()
   
 // Handling login request
 router
-.post("/",(req,res)=>{
+.post("/", authMiddleware, (req,res)=>{
     logger.info("Inside the create route")
     let result = companyService.createCompany(req.body)
     result.then(data=>{
@@ -59,7 +60,7 @@ router
         })
     })
 })
-.get("/", (req,res,next) => {
+.get("/", authMiddleware, (req,res,next) => {
     let result;
     
     result = companyService.getCompany()
@@ -81,7 +82,7 @@ router
         })
     })
 })
-.delete("/:companyName", (req,res) => {
+.delete("/:companyName", authMiddleware, (req,res) => {
     let result;
     
     result = companyService.deleteCompany(req.params.companyName)   
@@ -101,7 +102,7 @@ router
         })
     })
 })
-.put("/", (req,res) => {
+.put("/", authMiddleware, (req,res) => {
     let getResult;
     getResult = companyService.getCompany(req.body["Name"])   
     

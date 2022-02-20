@@ -2,12 +2,13 @@
 const express=require("express")
 const logger = require("../config/winston.config")
 const employeeService = require("../services/employee.service")
+const authMiddleware = require("../middlewares/auth.middleware")
 // Creating express Router
 const router=express.Router()
   
 // Handling login request
 router
-.post("/",(req,res)=>{
+.post("/", authMiddleware,(req,res)=>{
     logger.info("Creating  new employee")
     let result = employeeService.createEmployee(req.body)
     result.then(data=>{
@@ -55,7 +56,7 @@ router
     })
 })
 
-.get("/", (req,res) => {
+.get("/", authMiddleware, (req,res) => {
     
     let result;
     if (req.query.company){
@@ -82,7 +83,7 @@ router
         })
     })
 })
-.delete("/:id", (req,res) => {
+.delete("/:id", authMiddleware, (req,res) => {
     let result;
    
     result = employeeService.deleteEmployee(req.params.id)
@@ -102,7 +103,7 @@ router
         })
     })
 })
-.put("/:id", (req,res) => {
+.put("/:id", authMiddleware, (req,res) => {
     let getResult;
     getResult = employeeService.getEmployee(req.params.id)   
     
