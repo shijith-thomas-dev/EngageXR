@@ -14,3 +14,12 @@ exports.getUserByEmail = async (email) => {
       })
     return result
   };
+
+  exports.deleteUserByEmail = async (email) => {
+    let result = await UserDB.destroy({
+      where : {
+        Email : email
+        }
+      })
+    return result
+  };

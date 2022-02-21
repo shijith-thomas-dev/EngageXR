@@ -3,6 +3,7 @@ const express= require("express")
 const logger = require("../config/winston.config")
 const UserService = require("../services/user.service")
 const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middlewares/auth.middleware")
 
 // Creating express Router
 const router=express.Router()
@@ -25,19 +26,10 @@ router
             throw data["errors"][0]["message"]
         }
         
-        const token = jwt.sign(
-            {user_id: data.id, Email},
-            `${process.env.TOKEN_KEY}`,
-            {expiresIn: "1h"}
-        )
-         
-        
-        data["token"] = token
-
+        logger.info("Creating the user with token")
         return res.status(201).json({
             "msg": "Success",
-            "data": data,
-            "token": token
+            "data": data
         })
     })
     .catch(err => {
@@ -68,23 +60,32 @@ router
     const user = await UserService.getUserByEmail(Email);
 
     if(user){
-        const token = jwt.sign(
-            { user_id: user.id, Email },
-            `${process.env.TOKEN_KEY}`,
-            {
-              expiresIn: "1h",
-            }
-          );
-    
-        // save user token
-        user.token = token;
+        if (user.length == 1 && user[0]["Password"] === Password ){
+            const token = jwt.sign(
+                { user_id: user.id, Email },
+                `${process.env.TOKEN_KEY}`,
+                {
+                  expiresIn: "1h",
+                }
+              );
         
-        // user
-        res.status(200).json({
-            "msg": "Success",
-            "data": user,
-            "token": token
-        });
+            // save user token
+            user.token = token;
+            
+            // user
+            res.status(200).json({
+                "msg": "Success",
+                "data": user,
+                "token": token
+            });
+        }
+        else{
+            res.status(401).json({
+                "msg": "Failed",
+                "reason": "Login Failed"
+            }) 
+        }
+        
     }
     else{
         res.status(401).json({
@@ -93,7 +94,25 @@ router
         })
     }
 })
-
+.delete("/deregister", authMiddleware, (req,res) => {
+    let result;
+    
+    result = UserService.deleteUserByEmail(req.body.Email) 
+    
+    result.then(data=> {
+        if (data){
+            return res.status(204).end()
+        }
+        throw 'unable_to_delete_user'
+        
+    })
+    .catch(err => {
+        return res.status(404).json({
+            "msg": "Failed",
+            "reason": err
+        })
+    })
+})
 
 
 module.exports=router

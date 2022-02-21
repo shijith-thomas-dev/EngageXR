@@ -5,7 +5,8 @@ module.exports = (sequelize, Sequelize) => {
         validate : {
             isEmail: true
         },
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       Password: {
         type: Sequelize.STRING(100)

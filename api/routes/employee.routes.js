@@ -3,6 +3,7 @@ const express=require("express")
 const logger = require("../config/winston.config")
 const employeeService = require("../services/employee.service")
 const authMiddleware = require("../middlewares/auth.middleware")
+const validator = require("../utils/validator.util")
 // Creating express Router
 const router=express.Router()
   
@@ -10,6 +11,9 @@ const router=express.Router()
 router
 .post("/", authMiddleware,(req,res)=>{
     logger.info("Creating  new employee")
+    let isValid = validator.employeePayloadValidator(req.body)
+    if (isValid){
+        req.body["CompanyName"] = req.body["CompanyName"].toLowerCase()
     let result = employeeService.createEmployee(req.body)
     result.then(data=>{
         return res.status(201).json({
@@ -31,6 +35,14 @@ router
             "reason": err
         })
     })
+    }
+    else{
+        return res.status(400).json({
+            "msg": "Failed",
+            "reason": "Validation failed"
+        }) 
+    }
+    
     
    
 })
@@ -85,7 +97,7 @@ router
 })
 .delete("/:id", authMiddleware, (req,res) => {
     let result;
-   
+    logger.info("Deleting a employee with id ")
     result = employeeService.deleteEmployee(req.params.id)
     
     

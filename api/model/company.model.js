@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
       Email: {
         type: Sequelize.STRING(30),
         validate : {
-            isEmail: true
+            isEmail: true,
         }
       },
       Phone: {

@@ -25,7 +25,7 @@ app.use(morgan('combined', { stream: winston.stream }));
 const db = require("./model/index.model");
 db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
-  });
+});
 
 app.use("/",(req,res,next) => {
     console.log("middleware")

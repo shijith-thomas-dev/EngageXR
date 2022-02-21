@@ -38,10 +38,10 @@ Aditional Specs which are already covered:
 3. Postman test collection extracted
 4. Used Sequlize ORM for the DB intractions
 5. JWT Authentication
-5. Swagger Doc
+5. Integration test for all API's
 
 
-Additional pending things:
+Additional Improvements:
 1. Docker image and k8s for high availability
 2. Security threats like DDOS and JSON threat protection
 3. BDD test scnearios

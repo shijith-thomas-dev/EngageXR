@@ -3,6 +3,7 @@ const express= require("express")
 const logger = require("../config/winston.config")
 const companyService = require("../services/company.service")
 const authMiddleware = require("../middlewares/auth.middleware")
+const validator = require("../utils/validator.util")
   
 // Creating express Router
 const router=express.Router()
@@ -11,36 +12,47 @@ const router=express.Router()
 router
 .post("/", authMiddleware, (req,res)=>{
     logger.info("Inside the create route")
-    let result = companyService.createCompany(req.body)
-    result.then(data=>{
-        if (data.hasOwnProperty('errors')) {
-            throw data["errors"][0]["message"]
-        }
-        return res.status(201).json({
-            "msg": "Success",
-            "data": data
+    let isValid = validator.companyPayloadValidator(req.body)
+    if (isValid){
+        let result = companyService.createCompany(req.body)
+        result.then(data=>{
+            if (data.hasOwnProperty('errors')) {
+                throw data["errors"][0]["message"]
+            }
+            return res.status(201).json({
+                "msg": "Success",
+                "data": data
+            })
         })
-    })
-    .catch(err => {
-        logger.error(JSON.stringify(err))
-        if (err.hasOwnProperty('errors')) {
-            err =  err["errors"][0]["message"]
-        }
-        if (err.hasOwnProperty('parent')) {
-            err =  err["parent"]["detail"]
-        }
+        .catch(err => {
+            logger.error(JSON.stringify(err))
+            if (err.hasOwnProperty('errors')) {
+                err =  err["errors"][0]["message"]
+            }
+            if (err.hasOwnProperty('parent')) {
+                err =  err["parent"]["detail"]
+            }
+            return res.status(400).json({
+                "msg": "Failed",
+                "reason": err
+            })
+        })
+    }
+    else{
         return res.status(400).json({
             "msg": "Failed",
-            "reason": err
+            "reason": "Validation failed"
         })
-    })
+    }
+    
     
    
 })
 .get("/:companyName", (req,res) => {
     let result;
-    
-    result = companyService.getCompany(req.params.companyName)   
+    let companyName =  req.params.companyName
+
+    result = companyService.getCompany(companyName.toLowerCase())   
     
     
     result.then(data=> {
@@ -85,7 +97,7 @@ router
 .delete("/:companyName", authMiddleware, (req,res) => {
     let result;
     
-    result = companyService.deleteCompany(req.params.companyName)   
+    result = companyService.deleteCompany(req.params.companyName.toLowerCase())   
     
     
     result.then(data=> {
@@ -104,7 +116,7 @@ router
 })
 .put("/", authMiddleware, (req,res) => {
     let getResult;
-    getResult = companyService.getCompany(req.body["Name"])   
+    getResult = companyService.getCompany(req.body["Name"].toLowerCase())   
     
     
     getResult.then(data=> {
